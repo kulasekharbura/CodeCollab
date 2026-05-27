@@ -1,6 +1,10 @@
 services:
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:5000
+        VITE_SOCKET_URL: http://localhost:5000
     ports:
       - "5173:80"
     depends_on:
@@ -10,14 +14,11 @@ services:
     build: ./backend
     ports:
       - "5000:5000"
+    env_file:
+      - ./backend/.env
     environment:
       - MONGO_URI=mongodb://mongo:27017/codecollab
       - REDIS_URL=redis://redis:6379
-      - JWT_SECRET=change_me_to_32_byte_secret
-      - FRONTEND_URL=http://localhost:5173
-      - BACKEND_URL=http://localhost:5000
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
     depends_on:
       - mongo
       - redis

@@ -27,6 +27,7 @@ app.use("/auth", authRoutes);
 app.use("/files", fileRoutes);
 app.use("/rooms", roomRoutes);
 app.use("/health", healthRoutes);
+app.use("/api/health", healthRoutes);
 
 app.get("/", (_req, res) => res.json({ message: "CodeCollab API" }));
 
